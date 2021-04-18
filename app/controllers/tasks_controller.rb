@@ -17,6 +17,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:email, :seller_id, :mws_auth_token, :ship_to_fba, :services_cost)
+    params.require(:task).permit(:email, :seller_id, :mws_auth_token, :ship_to_fba, :services_cost, :file)
   end
 end

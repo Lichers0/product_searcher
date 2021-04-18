@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   resources :tasks, only: [:new, :create]
-  root "task#new"
+  root "tasks#new"
 end
