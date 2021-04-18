@@ -7,8 +7,7 @@ exclude:
 - ".bundle/**/*"
 require: []
 domains: []
-plugins:
-- solargraph-standardrb
+plugins: []
 reporters:
-- standardrb
+- rubocop
 max_files: 5000
