@@ -1,4 +1,13 @@
+inherit_mode:
+  merge:
+    - Exclude
+
 require:
+  - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
-  - rubocop-performance
+
+inherit_from:
+  # - .rubocop_rails.yml
+  # - .rubocop_rspec.yml
+  - .rubocop_strict.yml
