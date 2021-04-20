@@ -7,7 +7,11 @@ class TasksController < ApplicationController
 
   def create
     self.task = Task.new(task_params)
-    render task.save ? :create : :new
+    if task.save
+      render :create
+    else
+      render :new
+    end
   end
 
   private
@@ -15,6 +19,8 @@ class TasksController < ApplicationController
   attr_accessor :task
 
   def task_params
-    params.require(:task).permit(:email, :seller_id, :mws_auth_token, :ship_to_fba, :services_cost, :file)
+    params
+      .require(:task)
+      .permit(:email, :seller_id, :mws_auth_token, :ship_to_fba, :services_cost, :file)
   end
 end

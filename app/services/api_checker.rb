@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApiChecker < ApplicationService
+  delegate credentials, to: Rails.application
+
   def initialize(task)
     @seller_id = task.seller_id
     @mws_auth_token = task.mws_auth_token
@@ -30,8 +32,8 @@ class ApiChecker < ApplicationService
     {
       marketplace: "US",
       merchant_id: "#{seller_id}1",
-      aws_access_key_id: Rails.application.credentials.mws[:aws_access_key_id],
-      aws_secret_access_key: Rails.application.credentials.mws[:aws_secret_access_key],
+      aws_access_key_id: credentials.mws[:aws_access_key_id],
+      aws_secret_access_key: credentials.mws[:aws_secret_access_key],
       auth_token: mws_auth_token
     }
   end
