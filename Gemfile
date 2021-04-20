@@ -30,6 +30,7 @@ gem "active_storage_validations"
 gem "slim-rails"
 
 gem "peddler"
+gem "sidekiq"
 gem "smarter_csv"
 
 group :development, :test do
