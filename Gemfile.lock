@@ -242,6 +242,7 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
+    smarter_csv (1.2.8)
     spoon (0.0.6)
       ffi
     spring (2.1.1)
@@ -306,6 +307,7 @@ DEPENDENCIES
   rubocop-rspec
   sass-rails (>= 6)
   slim-rails
+  smarter_csv
   spring
   standard (~> 1.0, >= 1.0.5)
   tzinfo-data
