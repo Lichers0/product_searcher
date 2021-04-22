@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 2021_04_18_142555) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "email"
-    t.string "seller_id"
-    t.string "mws_auth_token"
-    t.decimal "ship_to_fba", precision: 8, scale: 2
-    t.decimal "services_cost", precision: 8, scale: 2
+    t.string "email", null: false
+    t.string "seller_id", null: false
+    t.string "mws_auth_token", null: false
+    t.decimal "ship_to_fba", precision: 8, scale: 2, null: false
+    t.decimal "services_cost", precision: 8, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
