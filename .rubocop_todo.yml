@@ -74,6 +74,7 @@ Metrics/PerceivedComplexity:
 
 # Offense count: 3
 Style/Documentation:
+  Enabled: false
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
