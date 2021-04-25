@@ -2,16 +2,14 @@
 
 class AmazonUserApiKeys
   delegate :credentials, to: :'Rails.application'
-  attr_reader :seller_id, :mws_auth_token
 
-  def initialize(seller_id, mws_auth_token)
+  def initialize(seller_id:, mws_auth_token:)
     @seller_id = seller_id
     @mws_auth_token = mws_auth_token
   end
 
   def valid?
-    validate
-    @error
+    @valid ||= validate
   end
 
   def invalid?
@@ -20,12 +18,13 @@ class AmazonUserApiKeys
 
   private
 
+  attr_reader :seller_id, :mws_auth_token
+
   def validate
     client = MWS::Reports::Client.new(reports_params)
     client.get_report_count(report_type_list: "_GET_FLAT_FILE_OPEN_LISTINGS_DATA_")
-    @error = false
   rescue Peddler::Errors::Error
-    @error = true
+    @valid = false
   end
 
   def reports_params

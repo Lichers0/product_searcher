@@ -2,11 +2,11 @@
 
 class TasksController < ApplicationController
   def new
-    self.task = Task.new
+    @task = Task.new
   end
 
   def create
-    self.task = Task.new(task_params)
+    @task = Task.new(task_params)
     if task.save
       render :create
     else
@@ -15,8 +15,6 @@ class TasksController < ApplicationController
   end
 
   private
-
-  attr_accessor :task
 
   def task_params
     params
