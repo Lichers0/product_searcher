@@ -43,13 +43,13 @@ ActiveRecord::Schema.define(version: 2021_04_20_083725) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "prices", force: :cascade do |t|
+  create_table "pricelists", force: :cascade do |t|
     t.bigint "task_id", null: false
     t.string "upc"
     t.decimal "cost", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["task_id"], name: "index_prices_on_task_id"
+    t.index ["task_id"], name: "index_pricelists_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -64,5 +64,5 @@ ActiveRecord::Schema.define(version: 2021_04_20_083725) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "prices", "tasks"
+  add_foreign_key "pricelists", "tasks"
 end
