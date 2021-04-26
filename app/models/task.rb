@@ -19,6 +19,6 @@ class Task < ApplicationRecord
     return true if file.blank?
 
     temp_file = attachment_changes["file"].attachable
-    errors.add(:wrong_csv_header, "don't find columns") if Pricelist.new(temp_file).import_columns_present?
+    errors.add(:wrong_csv_header, "required columns missing") if Pricelist.new(temp_file).import_columns_present?
   end
 end
