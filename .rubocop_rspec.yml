@@ -1,0 +1,8 @@
+RSpec/MultipleExpectations:
+  Exclude:
+    - "spec/system/**/*"
+RSpec/ExampleLength:
+  Exclude:
+    - "spec/system/**/*"
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
