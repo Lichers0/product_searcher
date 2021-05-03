@@ -12,13 +12,13 @@ class Task < ApplicationRecord
   def amazon_user_api_keys
     return if AmazonUserApiKeys.new(seller_id: seller_id, mws_auth_token: mws_auth_token).valid?
 
-    errors.add(:wrong_keys, "amazon keys errors")
+    errors.add(:Wrong, "amazon api keys")
   end
 
   def price_columns_presence
     return true if file.blank?
 
     temp_file = attachment_changes["file"].attachable
-    errors.add(:wrong_csv_header, "required columns missing") if Pricelist.new(temp_file).import_columns_present?
+    errors.add(:Csv, "required columns missing") unless Pricelist.new(temp_file).import_columns_present?
   end
 end

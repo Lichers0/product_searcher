@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.2"
+ruby "2.7.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem "rails", "~> 6.1.3", ">= 6.1.3.1"
@@ -30,6 +30,7 @@ gem "active_storage_validations"
 gem "slim-rails"
 
 gem "peddler"
+gem "rails-i18n"
 gem "smarter_csv"
 
 group :development, :test do
@@ -51,11 +52,17 @@ group :development do
   gem "rack-mini-profiler", "~> 2.0"
   gem "spring"
 
+  gem "i18n-debug"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "standard", "~> 1.0", ">= 1.0.5"
   # gem 'solargraph-standardrb', require: false
+end
+
+group :test do
+  gem "capybara"
+  gem "fuubar"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
