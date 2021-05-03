@@ -1,0 +1,24 @@
+.errors
+  = render 'shared/errors', resource: @task
+
+h1 Create search task
+= form_for @task do |t|
+  = t.label :email
+  = t.text_field :email
+  br
+  = t.label :seller_id
+  = t.text_field :seller_id
+  br
+  = t.label :mws_auth_token
+  = t.text_field :mws_auth_token
+  br
+  = t.label :ship_to_fba
+  = t.text_field :ship_to_fba
+  br
+  = t.label :services_cost
+  = t.text_field :services_cost
+  br
+  = t.label :file
+  = t.file_field :file
+  br
+  = t.submit
