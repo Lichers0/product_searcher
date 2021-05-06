@@ -1,0 +1,2 @@
+module ProfitPairsHelper
+end

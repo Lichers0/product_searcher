@@ -7,10 +7,20 @@ class Task < ApplicationRecord
   validates :file, attached: true
   validate  :price_columns_presence, :amazon_user_api_keys
 
+  def api_keys
+    attributes
+      .slice("seller_id", "mws_auth_token")
+      .symbolize_keys
+  end
+
+  def pricelist_link
+    @pricelist_link ||= ActiveStorage::Blob.service.path_for(file.key)
+  end
+
   private
 
   def amazon_user_api_keys
-    return if AmazonUserApiKeys.new(seller_id: seller_id, mws_auth_token: mws_auth_token).valid?
+    return if AmazonUserApiKeys.new(api_keys).valid?
 
     errors.add(:Wrong, "amazon api keys")
   end

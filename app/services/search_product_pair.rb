@@ -2,24 +2,33 @@
 
 class SearchProductPair < ApplicationService
   def initialize(pricelist_record)
-    @pricalist_record = pricelist_record
+    @pricelist_record = pricelist_record
     super()
   end
 
   def call
-    product_pair_list
+    pair_by_current_upc.each do |pair|
+      CheckProductPair.call(pricelist_record: pricelist_record,
+                            pair: pair)
+    end
+
+    pricelist_record.update(processed: true)
   end
 
   private
 
   attr_reader :pricelist_record
 
-  def product_pair_list
-    AMZ::ProductSearch.new(user_api_keys).find_product(upc: upc)
+  def marketplace
+    @marketplace ||= Peddler::Marketplace.find("US").id
   end
 
-  def user_api_keys
-    @user_api_keys ||= pricelist_record.task.user_api_keys
+  def pair_by_current_upc
+    Amz::ProductSearch.new(api_keys).call(marketplace: marketplace, upc: upc)
+  end
+
+  def api_keys
+    @api_keys ||= pricelist_record.task.api_keys
   end
 
   def upc

@@ -10,7 +10,7 @@ class ImportPricelist < ApplicationService
     pricelist_data.each do |row|
       PricelistRecord.create!(params(row))
     end
-    CreateSearchQueue.call(task)
+    # CreateSearchQueue.call(task)
   end
 
   private
@@ -21,7 +21,7 @@ class ImportPricelist < ApplicationService
     {
       task: task,
       upc: row[upc_column].to_s,
-      cost: row[cost_name].sub(/[^0-9\\.]/, "").to_d
+      cost: row[cost_column].sub(/[^0-9\\.]/, "").to_d
     }
   end
 
@@ -30,7 +30,7 @@ class ImportPricelist < ApplicationService
   end
 
   def pricelist
-    @pricelist ||= Pricelist.new(pricelist_link)
+    @pricelist ||= Pricelist.new(task.pricelist_link)
   end
 
   def upc_column

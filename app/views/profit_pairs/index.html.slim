@@ -1,0 +1,34 @@
+h1 ProfitPairs
+
+table border=1
+  thead
+    tr
+      th
+        | bsr
+      th
+        | asin
+      th
+        | profit
+      th
+        | roi
+      th
+        | buybox_price
+      th
+        | quantity_unit
+      th
+        | cost
+      th
+        | total_offers
+      th
+        | upc
+      th
+        | brand
+      th
+        | weight
+      th
+        | title
+  tbody
+    =render @profit_pairs
+
+div
+  = pagy_nav(@pagy).html_safe
