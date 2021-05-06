@@ -58,6 +58,8 @@ end
 group :test do
   gem "capybara"
   gem "fuubar"
+  gem "vcr"
+  gem "webmock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

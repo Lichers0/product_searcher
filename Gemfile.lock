@@ -39,6 +39,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_storage_validations (0.9.2)
+      rails (>= 5.2.0)
     activejob (6.1.3.1)
       activesupport (= 6.1.3.1)
       globalid (>= 0.3.6)
@@ -76,11 +78,12 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    coderay (1.1.3)
->>>>>>> Stashed changes
     concurrent-ruby (1.1.8)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     erubi (1.10.0)
+    excon (0.81.0)
     ffi (1.15.0)
     ffi (1.15.0-java)
     ffi (1.15.0-x64-mingw32)
@@ -90,12 +93,15 @@ GEM
       ruby-progressbar (~> 1.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashdiff (1.0.1)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
       i18n (< 2)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    jeff (2.0.2)
+      excon
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -111,6 +117,7 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     msgpack (1.4.2-java)
+    multi_xml (0.6.0)
     nio4r (2.5.7)
     nio4r (2.5.7-java)
     nokogiri (1.11.3)
@@ -132,18 +139,6 @@ GEM
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
     pg (1.2.3-x86-mingw32)
-    pry (0.13.1)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-    pry (0.13.1-java)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-      spoon (~> 0.0)
-    pry-byebug (3.9.0)
-      byebug (~> 11.0)
-      pry (~> 0.13.0)
-    pry-rails (0.3.9)
-      pry (>= 0.10.4)
     public_suffix (4.0.6)
     puma (5.2.2)
       nio4r (~> 2.0)
@@ -196,20 +191,6 @@ GEM
     rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.2)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.10.0)
-    rspec-rails (5.0.1)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      railties (>= 5.2)
-      rspec-core (~> 3.10)
-      rspec-expectations (~> 3.10)
-      rspec-mocks (~> 3.10)
-      rspec-support (~> 3.10)
     rspec-support (3.10.2)
     rubocop (1.12.1)
       parallel (~> 1.10)
@@ -246,6 +227,14 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
+    slim (4.1.0)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 2.0.6, < 2.1)
+    slim-rails (3.2.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 5.0)
+    smarter_csv (1.2.8)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -257,6 +246,7 @@ GEM
     standard (1.0.5)
       rubocop (= 1.12.1)
       rubocop-performance (= 1.10.1)
+    temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
     tzinfo (2.0.4)
@@ -264,11 +254,16 @@ GEM
     tzinfo-data (1.2021.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.0.0)
+    vcr (6.0.0)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.12.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpacker (5.3.0)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -291,28 +286,32 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  active_storage_validations
   bootsnap (>= 1.4.4)
   byebug
   capybara
-  factory_bot_rails
   fuubar
   i18n-debug
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  peddler
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.3, >= 6.1.3.1)
   rails-i18n
-  rspec-rails
   rubocop-performance
   rubocop-rails
   rubocop-rspec
   sass-rails (>= 6)
+  slim-rails
+  smarter_csv
   spring
   standard (~> 1.0, >= 1.0.5)
   tzinfo-data
+  vcr
   web-console (>= 4.1.0)
+  webmock
   webpacker (~> 5.0)
 
 RUBY VERSION
