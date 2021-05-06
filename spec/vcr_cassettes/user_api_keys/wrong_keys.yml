@@ -1,0 +1,101 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mws.amazonservices.com/Reports/2009-01-01
+    body:
+      encoding: UTF-8
+      string: AWSAccessKeyId=AKIAIVHVPRCMH5UWD4HA&Action=GetReportCount&MWSAuthToken=&ReportTypeList.Type.1=_GET_FLAT_FILE_OPEN_LISTINGS_DATA_&SellerId=1&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2021-05-05T11%3A54%3A51Z&Version=2009-01-01&Signature=obP8h3E2dNGhCIMuJxbhPOe91%2F2tdws5qzgR9RYgP8o%3D
+    headers:
+      User-Agent:
+      - Jeff/2.0.2 (Language=Ruby; vm1396606)
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - Server
+      Date:
+      - Wed, 05 May 2021 11:54:51 GMT
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '294'
+      Connection:
+      - keep-alive
+      X-Amz-Rid:
+      - MP0HKXF9KGNBG8Z85DN8
+      X-Mws-Request-Id:
+      - 55e6edc3-7203-4fa8-a170-1a73c1409fd1
+      X-Mws-Timestamp:
+      - '2021-05-05T11:54:51.850Z'
+      X-Mws-Response-Context:
+      - u6HfafINmUcoNFZ8efkdcsADtzIFmkXoX3Dx/GGIjNBxHGv19k9GV5kPsoDiSBnCiFwVenp6fzw=
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0"?>
+        <ErrorResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>InvalidParameterValue</Code>
+            <Message>Invalid seller id: 1</Message>
+          </Error>
+          <RequestID>55e6edc3-7203-4fa8-a170-1a73c1409fd1</RequestID>
+        </ErrorResponse>
+  recorded_at: Wed, 05 May 2021 11:54:51 GMT
+- request:
+    method: post
+    uri: https://mws.amazonservices.com/Reports/2009-01-01
+    body:
+      encoding: UTF-8
+      string: AWSAccessKeyId=AKIAIVHVPRCMH5UWD4HA&Action=GetReportCount&MWSAuthToken=amzn.mws.6eb293fe-7935-feb0-f562-4c4650cd3837&ReportTypeList.Type.1=_GET_FLAT_FILE_OPEN_LISTINGS_DATA_&SellerId=AAQHWTH6HF5BV1&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2021-05-05T11%3A54%3A52Z&Version=2009-01-01&Signature=P3BUCJ7Lxa5MQvUu6MOR83CKi9kdQmHsZa1aq21igss%3D
+    headers:
+      User-Agent:
+      - Jeff/2.0.2 (Language=Ruby; vm1396606)
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - Server
+      Date:
+      - Wed, 05 May 2021 11:54:52 GMT
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '307'
+      Connection:
+      - keep-alive
+      X-Amz-Rid:
+      - 5XHPQ3DDDKHP855F2JX9
+      X-Mws-Request-Id:
+      - 020a1f13-ca5a-4107-8a16-ea81fc6e6fcf
+      X-Mws-Timestamp:
+      - '2021-05-05T11:54:52.484Z'
+      X-Mws-Response-Context:
+      - BQZR+H0u1wtVg8Anjl7IzYqn2jcK35aT5RDkcNCeUoXh63+kcBAXw4dJd4AZy+nXh6DuoHNPEAQ=
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0"?>
+        <ErrorResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>InvalidParameterValue</Code>
+            <Message>Invalid seller id: AAQHWTH6HF5BV1</Message>
+          </Error>
+          <RequestID>020a1f13-ca5a-4107-8a16-ea81fc6e6fcf</RequestID>
+        </ErrorResponse>
+  recorded_at: Wed, 05 May 2021 11:54:52 GMT
+recorded_with: VCR 6.0.0
