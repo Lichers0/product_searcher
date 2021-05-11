@@ -8,7 +8,7 @@ RSpec.describe AmazonUserApiKeys do
 
     let(:task) { build(:task, file: fixture_file_upload("correct.csv")) }
 
-    context "when api keys valid" do
+    context "when api keys are valid" do
       it "returns true" do
         VCR.use_cassette("user_api_keys/valid_keys") do
           expect(user_api_keys).to be_valid
@@ -16,7 +16,7 @@ RSpec.describe AmazonUserApiKeys do
       end
     end
 
-    context "when api keys does not valid" do
+    context "when api keys are invalid" do
       it "returns false" do
         VCR.use_cassette("user_api_keys/invalid_keys") do
           expect(user_api_keys).not_to be_valid

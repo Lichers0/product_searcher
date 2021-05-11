@@ -8,22 +8,21 @@ class Task < ApplicationRecord
   validate  :price_columns_presence, :amazon_user_api_keys
 
   def api_keys
-    {
-      seller_id: seller_id,
-      mws_auth_token: mws_auth_token
-    }
+    attributes
+      .slice("seller_id", "mws_auth_token")
+      .with_indifferent_access
   end
 
   private
 
   def amazon_user_api_keys
-    return if keys_not_empty? && AmazonUserApiKeys.new(api_keys).valid?
+    return if amazon_keys_present? && AmazonUserApiKeys.new(api_keys).valid?
 
     errors.add(:Wrong, "amazon api keys")
   end
 
-  def keys_not_empty?
-    !(seller_id.strip.empty? && mws_auth_token.strip.empty?)
+  def amazon_keys_present?
+    seller_id.presence && mws_auth_token.presence
   end
 
   def price_columns_presence
