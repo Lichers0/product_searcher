@@ -9,6 +9,7 @@ class AmazonUserApiKeys
   end
 
   def valid?
+    return false if amazon_keys_present?
     return @valid if defined? @valid
 
     @valid = validate
@@ -21,6 +22,10 @@ class AmazonUserApiKeys
   private
 
   attr_reader :seller_id, :mws_auth_token
+
+  def amazon_keys_present?
+    seller_id.presence && mws_auth_token.presence
+  end
 
   def validate
     client = MWS::Reports::Client.new(reports_params)

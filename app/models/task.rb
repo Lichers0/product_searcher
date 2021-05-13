@@ -16,13 +16,9 @@ class Task < ApplicationRecord
   private
 
   def amazon_user_api_keys
-    return if amazon_keys_present? && AmazonUserApiKeys.new(api_keys).valid?
+    return if AmazonUserApiKeys.new(api_keys).valid?
 
     errors.add(:Wrong, "amazon api keys")
-  end
-
-  def amazon_keys_present?
-    seller_id.presence && mws_auth_token.presence
   end
 
   def price_columns_presence
