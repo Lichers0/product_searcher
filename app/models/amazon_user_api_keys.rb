@@ -9,7 +9,7 @@ class AmazonUserApiKeys
   end
 
   def valid?
-    return false if amazon_keys_present?
+    return false unless keys_present?
     return @valid if defined? @valid
 
     @valid = validate
@@ -23,7 +23,7 @@ class AmazonUserApiKeys
 
   attr_reader :seller_id, :mws_auth_token
 
-  def amazon_keys_present?
+  def keys_present?
     seller_id.presence && mws_auth_token.presence
   end
 
