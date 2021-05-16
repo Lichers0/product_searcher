@@ -10,7 +10,11 @@ class Task < ApplicationRecord
   def api_keys
     attributes
       .slice("seller_id", "mws_auth_token")
-      .with_indifferent_access
+      .symbolize_keys
+  end
+
+  def pricelist_link
+    @pricelist_link ||= ActiveStorage::Blob.service.path_for(file.key)
   end
 
   private

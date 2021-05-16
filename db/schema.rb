@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_142555) do
+ActiveRecord::Schema.define(version: 2021_05_10_095522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,33 @@ ActiveRecord::Schema.define(version: 2021_04_18_142555) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "pricelist_records", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.string "upc"
+    t.decimal "cost", precision: 8, scale: 2
+    t.boolean "processed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_pricelist_records_on_task_id"
+  end
+
+  create_table "profit_pairs", force: :cascade do |t|
+    t.string "asin"
+    t.decimal "income", precision: 8, scale: 2
+    t.decimal "weight", precision: 8, scale: 2
+    t.integer "quantity_unit"
+    t.integer "bsr"
+    t.integer "total_offers"
+    t.integer "fba_offers"
+    t.decimal "buybox_price", precision: 8, scale: 2
+    t.string "title"
+    t.string "brand"
+    t.bigint "pricelist_record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pricelist_record_id"], name: "index_profit_pairs_on_pricelist_record_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "email", null: false
     t.string "seller_id", null: false
@@ -55,4 +82,6 @@ ActiveRecord::Schema.define(version: 2021_04_18_142555) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "pricelist_records", "tasks"
+  add_foreign_key "profit_pairs", "pricelist_records"
 end
