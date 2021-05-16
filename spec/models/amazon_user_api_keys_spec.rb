@@ -3,29 +3,24 @@
 require "rails_helper"
 
 RSpec.describe AmazonUserApiKeys do
-  describe "valid?" do
-    subject(:user_api_keys) { described_class.new({ seller_id: 123, mws_auth_token: 123 }) }
+  describe "#valid?" do
+    subject(:user_api_keys) { described_class.new(task.api_keys) }
 
-    let(:client) { instance_double(MWS::Reports::Client) }
-    let(:reports_params) { { report_type_list: "_GET_FLAT_FILE_OPEN_LISTINGS_DATA_" } }
+    let(:task) { build(:task, file: fixture_file_upload("correct.csv")) }
 
-    before do
-      allow(MWS::Reports::Client).to receive(:new).and_return(client)
-    end
-
-    context "when api keys valid" do
+    context "when api keys are valid" do
       it "returns true" do
-        allow(client).to receive(:get_report_count).with(reports_params).and_return({})
-
-        expect(user_api_keys.valid?).to be_truthy # rubocop:disable RSpec/PredicateMatcher
+        VCR.use_cassette("user_api_keys/valid_keys") do
+          expect(user_api_keys).to be_valid
+        end
       end
     end
 
-    context "when api keys does not valid" do
+    context "when api keys are invalid" do
       it "returns false" do
-        allow(client).to receive(:get_report_count).with(reports_params).and_raise(Peddler::Errors::Error)
-
-        expect(user_api_keys).not_to be_valid
+        VCR.use_cassette("user_api_keys/invalid_keys") do
+          expect(user_api_keys).not_to be_valid
+        end
       end
     end
   end

@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mws.amazonservices.com/Reports/2009-01-01
+    body:
+      encoding: UTF-8
+      string: AWSAccessKeyId=AKIAIVHVPRCMH5UWD4HA&Action=GetReportCount&MWSAuthToken=amzn.mws.6eb293fe-7935-feb0-f562-4c4650cff837&SellerId=AAQHWTH7HF8BV&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2021-05-06T09%3A02%3A27Z&Version=2009-01-01&Signature=bZ2x7EVOLlY8uFwebX09CX%2BDd0bvJFaOXWFLZXD7YVc%3D
+    headers:
+      User-Agent:
+      - Jeff/2.0.2 (Language=Ruby; vm1396606)
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Server
+      Date:
+      - Thu, 06 May 2021 09:02:28 GMT
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '304'
+      Connection:
+      - keep-alive
+      X-Amz-Rid:
+      - KRXHE3CBAZDWAC5236VG
+      X-Mws-Quota-Max:
+      - '80.0'
+      X-Mws-Quota-Remaining:
+      - '77.0'
+      X-Mws-Quota-Resetson:
+      - '2021-05-06T09:32:00.000Z'
+      X-Amz-Date:
+      - Thu, 6 May 2021 09:02:28 GMT
+      X-Amzn-Authorization:
+      - AAA SignedHeaders=X-Amz-Date, identity=com.amazon.aaa.FrpAndromedaReportsPlugin.AndromedaControlService.amzn1.aaa.id.qhz3ylg755gkejyk5sh44qm3wy.Default/1,
+        Signed=true, Encrypted=false, Signature=MfdV6IFe4SN2HuXQ6W3Oe6fUyVlcR+EUyfDAhw5u2EE=,
+        Algorithm=HmacSHA256
+      X-Mws-Request-Id:
+      - 453780f0-b4d4-418b-8aa2-36ed9068c4ce
+      X-Mws-Timestamp:
+      - '2021-05-06T09:02:27.841Z'
+      X-Mws-Response-Context:
+      - "/FbnkqcT2sFRpuNcGWTku4GLTPvE+LOXQdvp9dD82zYYVB+uoK+NVsCKUf4woYUSmvx6zV0RnCk="
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0"?>
+        <GetReportCountResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
+          <GetReportCountResult>
+            <Count>8659</Count>
+          </GetReportCountResult>
+          <ResponseMetadata>
+            <RequestId>453780f0-b4d4-418b-8aa2-36ed9068c4ce</RequestId>
+          </ResponseMetadata>
+        </GetReportCountResponse>
+  recorded_at: Thu, 06 May 2021 09:02:28 GMT
+recorded_with: VCR 6.0.0

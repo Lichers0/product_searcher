@@ -6,7 +6,8 @@ require File.expand_path("../config/environment", __dir__)
 
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
+Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -14,6 +15,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
@@ -28,7 +30,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    # if ENV["SELENIUM_DRIVER_URL"].present?
     driven_by :selenium,
               using: :chrome,
               options: {
@@ -36,8 +37,10 @@ RSpec.configure do |config|
                 url: ENV.fetch("SELENIUM_DRIVER_URL"),
                 desired_capabilities: :chrome
               }
-    # else
-    # driven_by :selenium_chrome_headless
-    # end
   end
+end
+
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+  include ActiveSupport::Testing::FileFixtures
 end
