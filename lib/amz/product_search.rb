@@ -13,19 +13,24 @@ class ProductSearch
     @response = client.get_matching_product_for_id(marketplace, "UPC", upc)
     result = []
     @response.dig("Products", "Product").each do |product|
-      result << { asin: asin(product),
-                  list_price: list_price(product),
-                  weight: weight(product),
-                  sales_rank: sales_rank(product),
-                  package_quantity: package_quantity(product) }
+      result << main_params(product)
     end
     result
-  rescue Peddler::Errors::Error => e
   end
 
   private
 
   attr_reader :seller_id, :mws_auth_token
+
+  def main_params(product)
+    {
+      asin: asin(product),
+      list_price: list_price(product),
+      weight: weight(product),
+      sales_rank: sales_rank(product),
+      package_quantity: package_quantity(product)
+    }
+  end
 
   def package_quantity(product_hash)
     product_hash.dig("AttributeSets", "ItemAttributes", "PackageQuantity")

@@ -12,9 +12,6 @@ module Amz
     def call(marketplace:, asin:)
       client = MWS::Products::Client.new(reports_params)
       @response = client.get_competitive_pricing_for_asin(marketplace, asin)
-      self
-    rescue Peddler::Errors::Error => e
-      e
     end
 
     def landed_price
@@ -22,24 +19,24 @@ module Amz
 
       conditions_prices = competitive_pricing&.dig("CompetitivePrices", "CompetitivePrice")
 
-      lended_price_with_new_condition(conditions_prices)&.dig("Price", "LandedPrice", "Amount").to_d || 0
+      @landed_price ||= landed_price_with_new_condition(conditions_prices)&.dig("Price", "LandedPrice", "Amount").to_d || 0
     end
 
-    def offer_count
-      return offer_count_new_condition if offering_listing.is_a?(Array)
+    def offers_count
+      return offers_count_new_condition if offering_listing.is_a?(Array)
 
-      offering_listing&.[]("Amount").to_i || 0
+      offering_listing&.[]("Amount").to_i
     end
 
     private
 
     attr_reader :seller_id, :mws_auth_token
 
-    def lended_price_with_new_condition(conditions_prices)
+    def landed_price_with_new_condition(conditions_prices)
       return conditions_prices unless conditions_prices.is_a?(Array)
 
       conditions_prices.find do |record|
-        record["condition"].capitalize == "New"
+        record["condition"].casecmp?("new")
       end
     end
 
@@ -51,9 +48,9 @@ module Amz
       @offering_listing ||= competitive_pricing&.dig("NumberOfOfferListings", "OfferListingCount")
     end
 
-    def offer_count_new_condition
+    def offers_count_new_condition
       offering_listing.find do |record|
-        record["condition"].capitalize == "New"
+        record["condition"].casecmp?("new")
       end["__content__"]
     end
 

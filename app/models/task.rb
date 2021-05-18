@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id             :bigint           not null, primary key
+#  email          :string           not null
+#  mws_auth_token :string           not null
+#  services_cost  :decimal(8, 2)    not null
+#  ship_to_fba    :decimal(8, 2)    not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  seller_id      :string           not null
+#
 class Task < ApplicationRecord
   has_one_attached :file
 

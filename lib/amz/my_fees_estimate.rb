@@ -22,20 +22,16 @@ module Amz
     end
 
     def details_fee
-      result_hash
-    end
-
-    private
-
-    attr_reader :seller_id, :mws_auth_token
-
-    def result_hash
       {
         amount: amount.to_d,
         referral_fee: referral_fee.to_d,
         fba_fee: fba_fee.to_d
       }
     end
+
+    private
+
+    attr_reader :seller_id, :mws_auth_token
 
     def fees_estimate
       @fees_estimate ||= @response.dig("FeesEstimateResultList", "FeesEstimateResult", "FeesEstimate")

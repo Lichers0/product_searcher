@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class CheckProductPair < ApplicationService
+  MAX_BEST_SELLERS_RANK = 100_000
+  MIN_PROFIT_FROM_SALE_OF_PRODUCT = 0.5
+
+  delegate :task, to: :pricelist_record
+  delegate :ship_to_fba, :services_cost, to: :task
+  delegate :cost, to: :pricelist_record
+
   def initialize(pricelist_record:, pair:)
     @pricelist_record = pricelist_record
     @pair = pair
@@ -9,10 +16,10 @@ class CheckProductPair < ApplicationService
 
   def call
     @bsr = pair[:sales_rank]
-    return if bsr > 100_000 || bsr.zero?
+    return if bsr > MAX_BEST_SELLERS_RANK || bsr.zero?
 
     init_pair_variable
-    save_profit_pair if income > 0.5
+    save_profit_pair if income > MIN_PROFIT_FROM_SALE_OF_PRODUCT
   end
 
   private
@@ -20,29 +27,33 @@ class CheckProductPair < ApplicationService
   attr_reader :pricelist_record, :pair, :asin, :quantity, :weight, :bsr, :title, :brand
 
   def save_profit_pair
-    ProfitPair.create(pricelist_record: pricelist_record,
-                      asin: asin,
-                      income: income,
-                      weight: weight,
-                      quantity_unit: quantity,
-                      buybox_price: listing_price,
-                      bsr: bsr,
-                      total_offers: total_offers,
-                      title: title,
-                      brand: brand,
-                      fba_offers: 0)
+    ProfitPair.create(
+      main_params.merge(offers_params).merge(pricelist_record: pricelist_record)
+    )
   end
 
-  def init_pair_variable
-    @asin = pair[:asin]
-    @quantity = pair[:package_quantity]
-    @weight = pair[:weight]
-    @title = pair[:title]
-    @brand = pair[:brand]
+  def main_params
+    {
+      asin: asin,
+      income: income,
+      weight: weight,
+      quantity_unit: quantity,
+      buybox_price: listing_price,
+      bsr: bsr,
+      title: title,
+      brand: brand
+    }
+  end
+
+  def offers_params
+    {
+      total_offers: total_offers,
+      fba_offers: 0
+    }
   end
 
   def total_offers
-    competitive_pricing.offer_count
+    competitive_pricing.offers_count
   end
 
   def listing_price
@@ -50,7 +61,7 @@ class CheckProductPair < ApplicationService
   end
 
   def income
-    @income = listing_price - amount_fees - quantity * cost - services_cost - weight * ship_to_fba
+    @income ||= listing_price - amount_fees - quantity * cost - services_cost - weight * ship_to_fba
   end
 
   def amount_fees
@@ -71,18 +82,6 @@ class CheckProductPair < ApplicationService
   end
 
   def api_keys
-    @api_keys ||= pricelist_record.task.api_keys
-  end
-
-  def cost
-    pricelist_record.cost
-  end
-
-  def ship_to_fba
-    pricelist_record.task.ship_to_fba
-  end
-
-  def services_cost
-    pricelist_record.task.services_cost
+    @api_keys ||= task.api_keys
   end
 end

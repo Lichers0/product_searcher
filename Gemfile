@@ -61,7 +61,8 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "standard", "~> 1.0", ">= 1.0.5"
-  # gem 'solargraph-standardrb', require: false
+
+  gem "annotate"
 end
 
 group :test do

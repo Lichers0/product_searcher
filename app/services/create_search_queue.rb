@@ -7,7 +7,7 @@ class CreateSearchQueue < ApplicationService
   end
 
   def call
-    PricelistRecord.where(task: task, processed: false).in_batches.each do |record|
+    PricelistRecord.unprocessed(@task).in_batches.each do |record|
       SearchProductPairJob.perform_later(record)
     end
   end
