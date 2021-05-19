@@ -4,10 +4,6 @@ class CheckProductPair < ApplicationService
   MAX_BEST_SELLERS_RANK = 100_000
   MIN_PROFIT_FROM_SALE_OF_PRODUCT = 0.5
 
-  delegate :task, to: :pricelist_record
-  delegate :ship_to_fba, :services_cost, to: :task
-  delegate :cost, to: :pricelist_record
-
   def initialize(pricelist_record:, pair:)
     @pricelist_record = pricelist_record
     @pair = pair
@@ -15,16 +11,28 @@ class CheckProductPair < ApplicationService
   end
 
   def call
-    @bsr = pair[:sales_rank]
     return if bsr > MAX_BEST_SELLERS_RANK || bsr.zero?
 
-    init_pair_variable
+    @asin = pair[:asin]
+    @quantity = pair[:package_quantity]
+    @weight = pair[:weight]
+    @title = pair[:title]
+    @brand = pair[:brand]
+
     save_profit_pair if income > MIN_PROFIT_FROM_SALE_OF_PRODUCT
   end
 
   private
 
-  attr_reader :pricelist_record, :pair, :asin, :quantity, :weight, :bsr, :title, :brand
+  delegate :task, to: :pricelist_record
+  delegate :ship_to_fba, :services_cost, to: :task
+  delegate :cost, to: :pricelist_record
+
+  attr_reader :pricelist_record, :pair, :asin, :quantity, :weight, :title, :brand
+
+  def bsr
+    pair[:sales_rank]
+  end
 
   def save_profit_pair
     ProfitPair.create(
@@ -77,8 +85,8 @@ class CheckProductPair < ApplicationService
   end
 
   def fees_by_current_asin
-    @fees_by_current_asin ||= Amz::MyFeesEstimate.new(api_keys).call(marketplace: marketplace, asin: asin,
-                                                                     price: listing_price)
+    @fees_by_current_asin ||=
+      Amz::MyFeesEstimate.new(api_keys).call(marketplace: marketplace, asin: asin, price: listing_price)
   end
 
   def api_keys

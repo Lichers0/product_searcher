@@ -2,8 +2,6 @@
 
 module Amz
   class CompetitivePricingForAsin
-    delegate :credentials, to: :'Rails.application'
-
     def initialize(seller_id:, mws_auth_token:)
       @seller_id = seller_id
       @mws_auth_token = mws_auth_token
@@ -19,29 +17,30 @@ module Amz
 
       conditions_prices = competitive_pricing&.dig("CompetitivePrices", "CompetitivePrice")
 
-      @landed_price ||= landed_price_with_new_condition(conditions_prices)&.dig("Price", "LandedPrice", "Amount").to_d || 0
+      @landed_price ||= landed_price_with_new_condition(conditions_prices)
+        &.dig("Price", "LandedPrice", "Amount").to_d || 0
     end
 
     def offers_count
       return offers_count_new_condition if offering_listing.is_a?(Array)
 
-      offering_listing&.[]("Amount").to_i
+      offering_listing&.fetch("Amount").to_i
     end
 
     private
 
-    attr_reader :seller_id, :mws_auth_token
+    delegate :credentials, to: :'Rails.application'
+
+    attr_reader :seller_id, :mws_auth_token, :response
 
     def landed_price_with_new_condition(conditions_prices)
       return conditions_prices unless conditions_prices.is_a?(Array)
 
-      conditions_prices.find do |record|
-        record["condition"].casecmp?("new")
-      end
+      conditions_prices.find { |record| record["condition"].casecmp?("new") }
     end
 
     def competitive_pricing
-      @competitive_pricing ||= @response.dig("Product", "CompetitivePricing")
+      @competitive_pricing ||= response.dig("Product", "CompetitivePricing")
     end
 
     def offering_listing
@@ -49,9 +48,9 @@ module Amz
     end
 
     def offers_count_new_condition
-      offering_listing.find do |record|
-        record["condition"].casecmp?("new")
-      end["__content__"]
+      offering_listing
+        .find { |record| record["condition"].casecmp?("new") }
+        .fetch("__content__")
     end
 
     def reports_params

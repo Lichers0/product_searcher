@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProductSearch
-  delegate :credentials, to: :'Rails.application'
-
   def initialize(seller_id:, mws_auth_token:)
     @seller_id = seller_id
     @mws_auth_token = mws_auth_token
@@ -11,16 +9,20 @@ class ProductSearch
   def find(marketplace:, upc:)
     client = MWS::Products::Client.new(reports_params)
     @response = client.get_matching_product_for_id(marketplace, "UPC", upc)
+
     result = []
-    @response.dig("Products", "Product").each do |product|
-      result << main_params(product)
-    end
+    response
+      .dig("Products", "Product")
+      .each { |product| result << main_params(product) }
+
     result
   end
 
   private
 
-  attr_reader :seller_id, :mws_auth_token
+  delegate :credentials, to: :'Rails.application'
+
+  attr_reader :seller_id, :mws_auth_token, :response
 
   def main_params(product)
     {

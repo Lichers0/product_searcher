@@ -2,8 +2,6 @@
 
 module Amz
   class MyFeesEstimate
-    delegate :credentials, to: :'Rails.application'
-
     def initialize(seller_id:, mws_auth_token:)
       @seller_id = seller_id
       @mws_auth_token = mws_auth_token
@@ -12,9 +10,6 @@ module Amz
     def call(marketplace:, asin:, price:)
       client = MWS::Products::Client.new(reports_params)
       @response = client.get_my_fees_estimate(request_params(marketplace: marketplace, asin: asin, price: price))
-      self
-    rescue Peddler::Errors::Error => e
-      e
     end
 
     def amount
@@ -31,10 +26,12 @@ module Amz
 
     private
 
-    attr_reader :seller_id, :mws_auth_token
+    delegate :credentials, to: :'Rails.application'
+
+    attr_reader :seller_id, :mws_auth_token, :response
 
     def fees_estimate
-      @fees_estimate ||= @response.dig("FeesEstimateResultList", "FeesEstimateResult", "FeesEstimate")
+      @fees_estimate ||= response.dig("FeesEstimateResultList", "FeesEstimateResult", "FeesEstimate")
     end
 
     def fee_detail
@@ -42,11 +39,15 @@ module Amz
     end
 
     def referral_fee
-      fee_detail.find { |record| record["FeeType"] == "ReferralFee" }&.dig("FeeAmount", "Amount") || -1.0
+      fee_detail
+        .find { |record| record["FeeType"] == "ReferralFee" }
+        &.dig("FeeAmount", "Amount") || -1.0
     end
 
     def fba_fee
-      fee_detail.find { |record| record["FeeType"] == "FBAFees" }.dig("FeeAmount", "Amount") || -1.0
+      fee_detail
+        .find { |record| record["FeeType"] == "FBAFees" }
+        &.dig("FeeAmount", "Amount") || -1.0
     end
 
     def reports_params
