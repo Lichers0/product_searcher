@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      ImportPricelistJob.perform_later(@task)
+      SearchTaskJob.perform_later(@task)
       render :create
     else
       render :new

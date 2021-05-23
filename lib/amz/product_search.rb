@@ -1,66 +1,70 @@
 # frozen_string_literal: true
 
-class ProductSearch
-  def initialize(seller_id:, mws_auth_token:)
-    @seller_id = seller_id
-    @mws_auth_token = mws_auth_token
-  end
+module Amz
+  class ProductSearch < Amz::ApiService
+    include Enumerable
 
-  def find(marketplace:, upc:)
-    client = MWS::Products::Client.new(reports_params)
-    @response = client.get_matching_product_for_id(marketplace, "UPC", upc)
+    def find_by(marketplace:, upc:)
+      @response = client.get_matching_product_for_id(marketplace, "UPC", upc)
 
-    result = []
-    response
-      .dig("Products", "Product")
-      .each { |product| result << main_params(product) }
+      self
+    end
 
-    result
-  end
+    def each
+      products.each do |product|
+        yield Amz::Asin.new(main_params(product))
+      end
+    end
 
-  private
+    private
 
-  delegate :credentials, to: :'Rails.application'
+    def products
+      result = response.dig("Products", "Product") || []
+      result.is_a?(Array) ? result : [result]
+    end
 
-  attr_reader :seller_id, :mws_auth_token, :response
+    def asin(product_hash)
+      product_hash.dig("Identifiers", "MarketplaceASIN", "ASIN")
+    end
 
-  def main_params(product)
-    {
-      asin: asin(product),
-      list_price: list_price(product),
-      weight: weight(product),
-      sales_rank: sales_rank(product),
-      package_quantity: package_quantity(product)
-    }
-  end
+    def items_attributes(product_hash)
+      product_hash.dig("AttributeSets", "ItemAttributes")
+    end
 
-  def package_quantity(product_hash)
-    product_hash.dig("AttributeSets", "ItemAttributes", "PackageQuantity")
-  end
+    def list_price(product_hash)
+      items_attributes(product_hash).dig("ListPrice", "Amount") || 0
+    end
 
-  def sales_rank(product_hash)
-    product_hash.dig("SalesRankings", "SalesRank", 0, "Rank")
-  end
+    def weight(product_hash)
+      items_attributes(product_hash).dig("PackageDimensions", "Weight", "__content__") || 0
+    end
 
-  def weight(product_hash)
-    product_hash.dig("AttributeSets", "ItemAttributes", "PackageDimensions", "Weight", "__content__")
-  end
+    def quantity(product_hash)
+      items_attributes(product_hash).fetch("PackageQuantity", 1)
+    end
 
-  def asin(product_hash)
-    product_hash.dig("Identifiers", "MarketplaceASIN", "ASIN")
-  end
+    def title(product_hash)
+      items_attributes(product_hash).fetch("Title")
+    end
 
-  def list_price(product_hash)
-    product_hash.dig("AttributeSets", "ItemAttributes", "ListPrice", "Amount")
-  end
+    def brand(product_hash)
+      items_attributes(product_hash).fetch("Brand", "--")
+    end
 
-  def reports_params
-    {
-      marketplace: "US",
-      merchant_id: seller_id,
-      aws_access_key_id: credentials.mws[:aws_access_key_id],
-      aws_secret_access_key: credentials.mws[:aws_secret_access_key],
-      auth_token: mws_auth_token
-    }
+    def bsr(product_hash)
+      product_hash.dig("SalesRankings", "SalesRank", 0, "Rank")
+    end
+
+    def main_params(product)
+      {
+        asin: asin(product),
+        list_price: list_price(product).to_d,
+        weight: weight(product).to_d,
+        bsr: bsr(product).to_i,
+        quantity: quantity(product).to_i,
+        title: title(product),
+        brand: brand(product)
+      }
+    end
   end
 end
