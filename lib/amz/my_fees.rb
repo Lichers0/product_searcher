@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Amz
-  class MyFeesEstimate < Amz::ApiService
-    def call(marketplace:, asin:, price:)
+  class MyFees < Amz::ApiService
+    def estimate(marketplace:, asin:, price:)
       @response = client.get_my_fees_estimate(request_params(marketplace: marketplace, asin: asin, price: price))
 
       self
@@ -12,7 +12,7 @@ module Amz
       fees_estimate&.dig("TotalFeesEstimate", "Amount").to_d || -1
     end
 
-    def details_fee
+    def details
       {
         amount: amount,
         referral_fee: referral_fee,

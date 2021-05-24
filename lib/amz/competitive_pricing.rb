@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Amz
-  class CompetitivePricingForAsin < Amz::ApiService
-    def call(marketplace:, asin:)
+  class CompetitivePricing < Amz::ApiService
+    def for_asin(marketplace:, asin:)
       @response = client.get_competitive_pricing_for_asin(marketplace, asin)
 
       self

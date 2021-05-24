@@ -6,7 +6,7 @@ class SearchTask
   end
 
   def create
-    # import_pricelist
+    import_pricelist
     create_search_jobs_for_pricelist_records
   end
 

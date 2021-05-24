@@ -10,9 +10,9 @@ class ProductPair
   end
 
   def save_if_profitable
-    return if bsr_invalid?
+    return if bsr_invalid? || !profitable?
 
-    save_profit_pair if income > MIN_PROFIT_FROM_SALE_OF_PRODUCT
+    save_profit_pair
   end
 
   private
@@ -74,6 +74,6 @@ class ProductPair
 
   def fees_by_current_asin
     @fees_by_current_asin ||=
-      Amz::MyFeesEstimate.new(api_keys).call(marketplace: marketplace, asin: asin, price: listing_price)
+      Amz::MyFees.new(api_keys).estimate(marketplace: marketplace, asin: asin, price: listing_price)
   end
 end
