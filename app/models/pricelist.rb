@@ -51,6 +51,6 @@ class Pricelist
   end
 
   def pricelist_data
-    @pricelist_data ||= SmarterCSV.process(file)
+    @pricelist_data ||= SmarterCSV.process(file, { file_encoding: "" })
   end
 end
