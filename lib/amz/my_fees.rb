@@ -2,8 +2,15 @@
 
 module Amz
   class MyFees < Amz::ApiService
-    def estimate(marketplace:, asin:, price:)
-      @response = client.get_my_fees_estimate(request_params(marketplace: marketplace, asin: asin, price: price))
+    def initialize(seller_id:, mws_auth_token:, marketplace:)
+      @marketplace = marketplace
+      super(seller_id: seller_id, mws_auth_token: mws_auth_token)
+    end
+
+    def estimate(asin:, price:)
+      @response = client.get_my_fees_estimate(
+        request_params(marketplace: marketplace, asin: asin, price: price)
+      )
 
       self
     end
@@ -23,6 +30,8 @@ module Amz
     alias amount_fees amount
 
     private
+
+    attr_reader :marketplace
 
     def fees_estimate
       @fees_estimate ||= response.dig("FeesEstimateResultList", "FeesEstimateResult", "FeesEstimate")

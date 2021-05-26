@@ -69,11 +69,14 @@ class ProductPair
   end
 
   def competitive_pricing
-    @competitive_pricing ||= Amz::CompetitivePricingForAsin.new(api_keys).call(marketplace: marketplace, asin: asin)
+    @competitive_pricing ||=
+      Amz::CompetitivePricing.new(api_keys.merge(marketplace: marketplace))
+                             .for_asin(asin: asin)
   end
 
   def fees_by_current_asin
     @fees_by_current_asin ||=
-      Amz::MyFees.new(api_keys).estimate(marketplace: marketplace, asin: asin, price: listing_price)
+      Amz::MyFees.new(api_keys.merge(marketplace: marketplace))
+                 .estimate(asin: asin, price: listing_price)
   end
 end

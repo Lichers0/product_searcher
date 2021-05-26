@@ -2,7 +2,12 @@
 
 module Amz
   class CompetitivePricing < Amz::ApiService
-    def for_asin(marketplace:, asin:)
+    def initialize(seller_id:, mws_auth_token:, marketplace:)
+      @marketplace = marketplace
+      super(seller_id: seller_id, mws_auth_token: mws_auth_token)
+    end
+
+    def for_asin(asin:)
       @response = client.get_competitive_pricing_for_asin(marketplace, asin)
 
       self
@@ -24,6 +29,8 @@ module Amz
     alias listing_price landed_price
 
     private
+
+    attr_reader :marketplace
 
     def competitive_pricing
       @competitive_pricing ||= response.dig("Product", "CompetitivePricing")
