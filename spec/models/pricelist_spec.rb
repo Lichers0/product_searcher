@@ -3,41 +3,35 @@
 require "rails_helper"
 
 RSpec.describe Pricelist do
-  subject(:pricelist) { described_class.new(filename) }
-
-  describe "#upc_column" do
+  describe "#import_columns_present?" do
     context "when upc column present" do
-      let(:filename) { fixture_file_upload("correct.csv") }
+      it "returns true" do
+        filename = fixture_file_upload("correct.csv")
+        pricelist = described_class.new(filename)
 
-      it "returns name of column" do
-        expect(pricelist.upc_column).to eq :upc
+        expect(pricelist).to be_import_columns_present
       end
     end
 
     context "when upc column does not present" do
-      let(:filename) { fixture_file_upload("incorrect.csv") }
+      it "returns false" do
+        filename = fixture_file_upload("incorrect.csv")
+        pricelist = described_class.new(filename)
 
-      it "returns nil" do
-        expect(pricelist.upc_column).to eq nil
+        expect(pricelist).not_to be_import_columns_present
       end
     end
   end
 
-  describe "#cost_column" do
-    context "when upc column present" do
-      let(:filename) { fixture_file_upload("correct.csv") }
+  describe "#each" do
+    it "returns all pricelist's objects" do
+      filename = fixture_file_upload("correct.csv")
+      pricelist = described_class.new(filename)
+      yielded = []
 
-      it "returns name of column" do
-        expect(pricelist.cost_column).to eq :cost
-      end
-    end
+      pricelist.each { |element| yielded << element }
 
-    context "when upc column does not present" do
-      let(:filename) { fixture_file_upload("incorrect.csv") }
-
-      it "returns nil" do
-        expect(pricelist.cost_column).to eq nil
-      end
+      expect(yielded).to eq [{ cost: 2.507, upc: "644472002096" }, { cost: 2.507, upc: "644472002102" }]
     end
   end
 end
