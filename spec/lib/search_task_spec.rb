@@ -19,11 +19,4 @@ RSpec.describe SearchTask do
       expect(SearchProductPairJob).to have_received(:perform_later).twice
     end
   end
-
-  def create_task
-    task = build(:task, file: fixture_file_upload("correct.csv"))
-    allow(task).to receive(:amazon_user_api_keys)
-    task.save
-    task
-  end
 end

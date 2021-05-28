@@ -27,9 +27,8 @@ RSpec.describe Pricelist do
     it "returns all pricelist's objects" do
       filename = fixture_file_upload("correct.csv")
       pricelist = described_class.new(filename)
-      yielded = []
 
-      pricelist.each { |element| yielded << element }
+      yielded = pricelist.map { |element| element }
 
       expect(yielded).to eq [{ cost: 2.507, upc: "644472002096" }, { cost: 2.507, upc: "644472002102" }]
     end
