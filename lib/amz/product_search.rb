@@ -2,21 +2,24 @@
 
 module Amz
   class ProductSearch < Amz::ApiService
-    include Enumerable
-
-    def find_by(marketplace:, upc:)
-      @response = client.get_matching_product_for_id(marketplace, "UPC", upc)
-
-      self
+    def initialize(seller_id:, mws_auth_token:, marketplace:)
+      @marketplace = marketplace
+      super(seller_id: seller_id, mws_auth_token: mws_auth_token)
     end
 
-    def each
-      products.each do |product|
-        yield Amz::Asin.new(main_params(product))
-      end
+    def find_by(upc:)
+      self.response = api_client.get_matching_product_for_id(marketplace, "UPC", upc)
+
+      result_data
     end
 
     private
+
+    attr_reader :marketplace
+
+    def result_data
+      products.map { |product| Amz::Asin.new(main_params(product)) }
+    end
 
     def products
       result = response.dig("Products", "Product") || []
