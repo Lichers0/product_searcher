@@ -5,12 +5,13 @@ module Amz
     def initialize(seller_id:, mws_auth_token:)
       @seller_id = seller_id
       @mws_auth_token = mws_auth_token
-      @client = MWS::Products::Client.new(reports_params)
+      @api_client = MWS::Products::Client.new(reports_params)
     end
 
     private
 
-    attr_reader :seller_id, :mws_auth_token, :client, :response
+    attr_reader :seller_id, :mws_auth_token, :api_client
+    attr_accessor :response
 
     delegate :credentials, to: :'Rails.application'
 
