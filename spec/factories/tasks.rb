@@ -13,5 +13,10 @@ FactoryBot.define do
     trait :correct_price do
       file { fixture_file_upload(Rails.root.join("spec/fixtures/files/correct.csv")) }
     end
+
+    trait :low_cost_additional_services do
+      ship_to_fba { 0.1 }
+      services_cost { 0.1 }
+    end
   end
 end
