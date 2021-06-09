@@ -3,7 +3,7 @@
 class SearchProductPairJob < ApplicationJob
   queue_as :search_queue
 
-  def perform(pricelist_record)
-    SearchProductPair.call(pricelist_record)
+  def perform(product)
+    PricelistProduct.new(product).search_profit_pair
   end
 end

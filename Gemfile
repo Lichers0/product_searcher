@@ -31,12 +31,16 @@ gem "slim-rails"
 
 gem "peddler"
 gem "rails-i18n"
+gem "sidekiq"
 gem "smarter_csv"
+
+gem "pagy"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
+  gem "awesome_print"
   gem "factory_bot_rails"
   gem "pry-byebug"
   gem "pry-rails"
@@ -57,7 +61,8 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "standard", "~> 1.0", ">= 1.0.5"
-  # gem 'solargraph-standardrb', require: false
+
+  gem "annotate"
 end
 
 group :test do

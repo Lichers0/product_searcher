@@ -5,7 +5,7 @@ FactoryBot.define do
 
   factory :task do
     email
-    seller_id { "AAQHWTH7HF8B1" }
+    seller_id { "AAQHWTH7HF8BV" }
     mws_auth_token { "amzn.mws.6eb293fe-7935-feb0-f562-4c4650cff837" }
     ship_to_fba { 0.3 }
     services_cost { 0.5 }
