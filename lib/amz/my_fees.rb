@@ -8,7 +8,7 @@ module Amz
     end
 
     def estimate(asin:, price:)
-      @response = client.get_my_fees_estimate(
+      self.response = api_client.get_my_fees_estimate(
         request_params(marketplace: marketplace, asin: asin, price: price)
       )
 

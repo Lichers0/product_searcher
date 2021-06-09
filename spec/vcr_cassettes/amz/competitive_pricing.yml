@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mws.amazonservices.com/Products/2011-10-01
+    body:
+      encoding: UTF-8
+      string: ASINList.ASIN.1=B00BUFXI6M&AWSAccessKeyId=AKIAIVHVPRCMH5UWD4HA&Action=GetCompetitivePricingForASIN&MWSAuthToken=amzn.mws.6eb293fe-7935-feb0-f562-4c4650cff837&MarketplaceId=ATVPDKIKX0DER&SellerId=AAQHWTH7HF8BV&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2021-06-07T08%3A17%3A34Z&Version=2011-10-01&Signature=D0SLwduIQJ4evRmauY1xJQwzB8IzPeVqsIl9pPlIqh8%3D
+    headers:
+      User-Agent:
+      - Jeff/2.0.2 (Language=Ruby; vm1396606)
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Server
+      Date:
+      - Mon, 07 Jun 2021 08:17:34 GMT
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1454'
+      Connection:
+      - keep-alive
+      X-Amz-Rid:
+      - T88V67GMN0REM4NZPEZC
+      X-Mws-Quota-Max:
+      - '36000.0'
+      X-Mws-Quota-Remaining:
+      - '35999.0'
+      X-Mws-Quota-Resetson:
+      - '2021-06-07T08:32:00.000Z'
+      X-Amz-Date:
+      - Mon, 07 Jun 2021 08:17:34 GMT
+      X-Mws-Request-Id:
+      - f46054f3-f987-4a02-a970-9a38f7199e7e
+      X-Mws-Timestamp:
+      - '2021-06-07T08:17:34.614Z'
+      X-Mws-Response-Context:
+      - VmgXadFwcNDJo9df4nuB85ButEdBN9jAfDzBtSi8XsSlBZ0EKGFj+CibkY6YHk6GQcbgkDD8Zdw=
+      Vary:
+      - Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+      Permissions-Policy:
+      - interest-cohort=()
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version="1.0"?><GetCompetitivePricingForASINResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01"><GetCompetitivePricingForASINResult
+        ASIN="B00BUFXI6M" status="Success"><Product xmlns:ns2="http://mws.amazonservices.com/schema/Products/2011-10-01/default.xsd"><Identifiers><MarketplaceASIN><MarketplaceId>ATVPDKIKX0DER</MarketplaceId><ASIN>B00BUFXI6M</ASIN></MarketplaceASIN></Identifiers><CompetitivePricing><CompetitivePrices><CompetitivePrice
+        belongsToRequester="false" condition="New" subcondition="New"><CompetitivePriceId>1</CompetitivePriceId><Price><LandedPrice><CurrencyCode>USD</CurrencyCode><Amount>4.65</Amount></LandedPrice><ListingPrice><CurrencyCode>USD</CurrencyCode><Amount>4.65</Amount></ListingPrice><Shipping><CurrencyCode>USD</CurrencyCode><Amount>0.00</Amount></Shipping></Price></CompetitivePrice></CompetitivePrices><NumberOfOfferListings><OfferListingCount
+        condition="New">8</OfferListingCount><OfferListingCount condition="Any">8</OfferListingCount></NumberOfOfferListings></CompetitivePricing><SalesRankings><SalesRank><ProductCategoryId>pet_products_display_on_website</ProductCategoryId><Rank>4227</Rank></SalesRank><SalesRank><ProductCategoryId>3024125011</ProductCategoryId><Rank>9</Rank></SalesRank></SalesRankings></Product></GetCompetitivePricingForASINResult><ResponseMetadata><RequestId>f46054f3-f987-4a02-a970-9a38f7199e7e</RequestId></ResponseMetadata></GetCompetitivePricingForASINResponse>
+  recorded_at: Mon, 07 Jun 2021 08:17:34 GMT
+recorded_with: VCR 6.0.0
