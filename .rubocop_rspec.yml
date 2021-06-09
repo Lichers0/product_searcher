@@ -1,8 +1,10 @@
+RSpec/NestedGroups:
+  Max: 4
 RSpec/MultipleExpectations:
   Exclude:
-    - "spec/system/**/*"
+    - "spec/**/*"
 RSpec/ExampleLength:
   Exclude:
-    - "spec/system/**/*"
+    - "spec/**/*"
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
