@@ -25,7 +25,7 @@ class PricelistProduct
   end
 
   def amazon_products
-    Amz::ProductSearch.new(api_keys).find_by(marketplace: marketplace, upc: upc)
+    Amz::ProductSearch.new(api_keys.merge(marketplace: marketplace)).find_by(upc: upc)
   end
 
   def api_keys
