@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe ProductPair do
   context "when bsr is invalid" do
-    context "when bsr is zero" do
-      it "do NOT save this pair to db" do
+    context "and when bsr is zero" do
+      it "does NOT save this pair to db" do
         allow(ProfitPair).to receive(:create)
         pricelist_record = build(:pricelist_record)
         pair = instance_double(Amz::Asin, bsr: 0)
@@ -16,8 +16,8 @@ RSpec.describe ProductPair do
       end
     end
 
-    context "when bsr is more then 100_000" do
-      it "do NOT save this pair to db" do
+    context "and when bsr is more then 100_000" do
+      it "does NOT save this pair to db" do
         max_best_sellers_rank = 100_000
         allow(ProfitPair).to receive(:create)
         pricelist_record = build(:pricelist_record)
@@ -30,8 +30,8 @@ RSpec.describe ProductPair do
     end
   end
 
-  context "when pair if NOT profitable" do
-    it "do NOT save this pair to db" do
+  context "when pair is NOT profitable" do
+    it "does NOT save this pair to db" do
       pricelist_record = build(:pricelist_record)
       bsr_valid = 50_000
       pair = instance_double(Amz::Asin, bsr: bsr_valid).as_null_object
@@ -49,7 +49,7 @@ RSpec.describe ProductPair do
   end
 
   context "when bsr is invalid and pair is NOT profitable" do
-    it "do NOT save this pair to db" do
+    it "does NOT save this pair to db" do
       pricelist_record = build(:pricelist_record)
       bsr_invalid = 150_000
       pair = instance_double(Amz::Asin, bsr: bsr_invalid).as_null_object
