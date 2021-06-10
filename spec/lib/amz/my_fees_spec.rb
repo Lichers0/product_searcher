@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Amz::MyFees do
-  it "gets amount fees" do
+  it "returns amount fees" do
     VCR.use_cassette "amz/my_fees" do
       asin = "B005HE1OMW"
       price = 20.0

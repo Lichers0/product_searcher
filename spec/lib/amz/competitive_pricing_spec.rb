@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Amz::CompetitivePricing do
-  it "gets price product" do
+  it "returns price product" do
     VCR.use_cassette "amz/competitive_pricing" do
       asin = "B00BUFXI6M"
       price_product = 4.65
@@ -16,7 +16,7 @@ RSpec.describe Amz::CompetitivePricing do
     end
   end
 
-  it "gets offers count product" do
+  it "returns offers count product" do
     VCR.use_cassette "amz/competitive_pricing" do
       asin = "B00BUFXI6M"
       offers_count = 8
