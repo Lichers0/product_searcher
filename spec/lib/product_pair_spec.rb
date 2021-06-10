@@ -69,18 +69,31 @@ RSpec.describe ProductPair do
   context "when bsr is valid and pair is profitable" do
     it "saves profit pair to db" do
       pricelist_record = build(:pricelist_record)
-      bsr_valid = 50_000
-      pair = instance_double(Amz::Asin, bsr: bsr_valid).as_null_object
-      profitable = 1.5
-      product_pair_income = instance_double(ProductPairIncome, amount: profitable).as_null_object
-      allow(ProductPairIncome).to receive(:new).and_return(product_pair_income)
-      task = build(:task)
-      allow(pricelist_record).to receive(:task).and_return(task)
+      pair = build_valid_pair
+
+      stub_profitable_income
+      stub_task_call(pricelist_record)
       allow(ProfitPair).to receive(:create)
 
       described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
       expect(ProfitPair).to have_received(:create)
     end
+  end
+
+  def stub_task_call(pricelist_record)
+    task = build(:task)
+    allow(pricelist_record).to receive(:task).and_return(task)
+  end
+
+  def stub_profitable_income
+    profitable = 1.5
+    instance_double(ProductPairIncome, amount: profitable).as_null_object
+    allow(ProductPairIncome).to receive(:new).and_return(product_pair_income)
+  end
+
+  def build_valid_pair
+    bsr_valid = 50_000
+    instance_double(Amz::Asin, bsr: bsr_valid).as_null_object
   end
 end
