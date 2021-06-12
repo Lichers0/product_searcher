@@ -66,13 +66,13 @@ class ProductPair
 
   def product_pair_income
     ProductPairIncome.new(
-      { listing_price: listing_price,
-        amount_fees: amount_fees,
-        quantity: quantity,
-        cost: cost,
-        services_cost: services_cost,
-        weight: weight,
-        ship_to_fba: ship_to_fba }
+      listing_price: listing_price,
+      amount_fees: amount_fees,
+      quantity: quantity,
+      cost: cost,
+      services_cost: services_cost,
+      weight: weight,
+      ship_to_fba: ship_to_fba
     )
   end
 

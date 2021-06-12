@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class ProductPairIncome
-  def initialize(params)
+  def initialize(**params)
     @listing_price = params[:listing_price]
-    @amount = params[:amount]
+    @amount_fees = params[:amount_fees]
     @quantity = params[:quantity]
     @cost = params[:cost]
     @services_cost = params[:services_cost]

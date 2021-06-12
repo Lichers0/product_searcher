@@ -13,14 +13,15 @@ RSpec.describe ProductPairIncome do
       weight = 1.5.to_d
       ship_to_fba = 0.3.to_d
 
-      income = described_class.new
-      income.listing_price = listing_price
-      income.amount_fees = amount_fees
-      income.quantity = quantity
-      income.cost = cost
-      income.services_cost = services_cost
-      income.weight = weight
-      income.ship_to_fba = ship_to_fba
+      income = described_class.new(
+        listing_price: listing_price,
+        amount_fees: amount_fees,
+        quantity: quantity,
+        cost: cost,
+        services_cost: services_cost,
+        weight: weight,
+        ship_to_fba: ship_to_fba
+      )
 
       expect(income.amount)
         .to eq listing_price - (amount_fees + (quantity * cost) + services_cost + (weight * ship_to_fba))

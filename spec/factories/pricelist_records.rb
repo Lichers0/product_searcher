@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :pricelist_record do
+    task
     processed { false }
     cost { 10.50 }
     upc { "035585800158" }
