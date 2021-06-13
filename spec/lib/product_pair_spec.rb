@@ -87,8 +87,8 @@ RSpec.describe ProductPair do
   end
 
   def build_invalid_pair
-    valid_bsr = 150_000
-    instance_double(Amz::Asin, bsr: valid_bsr).as_null_object
+    invalid_bsr = 150_000
+    instance_double(Amz::Asin, bsr: invalid_bsr).as_null_object
   end
 
   def build_valid_pair

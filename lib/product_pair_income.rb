@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class ProductPairIncome
-  def initialize(**params)
-    @listing_price = params[:listing_price]
-    @amount_fees = params[:amount_fees]
-    @quantity = params[:quantity]
-    @cost = params[:cost]
-    @services_cost = params[:services_cost]
-    @weight = params[:weight]
-    @ship_to_fba = params[:ship_to_fba]
+  def initialize(listing_price:, amount_fees:, quantity:, cost:, services_cost:, weight:, ship_to_fba:) # rubocop:disable Metrics/ParameterLists
+    @listing_price = listing_price
+    @amount_fees = amount_fees
+    @quantity = quantity
+    @cost = cost
+    @services_cost = services_cost
+    @weight = weight
+    @ship_to_fba = ship_to_fba
   end
 
   def amount
