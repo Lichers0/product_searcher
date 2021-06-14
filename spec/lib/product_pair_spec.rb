@@ -3,13 +3,14 @@
 require "rails_helper"
 
 RSpec.describe ProductPair do
+  let(:pricelist_record) { build(:pricelist_record) }
+
+  before { allow(ProfitPair).to receive(:create) }
+
   context "when bsr is invalid" do
     context "and when bsr is zero" do
       it "does NOT save this pair to db" do
-        pricelist_record = build(:pricelist_record)
         pair = instance_double(Amz::Asin, bsr: 0)
-
-        allow(ProfitPair).to receive(:create)
 
         described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
@@ -20,10 +21,7 @@ RSpec.describe ProductPair do
     context "and when bsr is more then 100_000" do
       it "does NOT save this pair to db" do
         max_best_sellers_rank = 100_000
-        pricelist_record = build(:pricelist_record)
         pair = instance_double(Amz::Asin, bsr: max_best_sellers_rank + 1)
-
-        allow(ProfitPair).to receive(:create)
 
         described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
@@ -34,11 +32,9 @@ RSpec.describe ProductPair do
 
   context "when pair is NOT profitable" do
     it "does NOT save this pair to db" do
-      pricelist_record = build(:pricelist_record)
       pair = build_valid_pair
 
       stub_unprofitable_income
-      allow(ProfitPair).to receive(:create)
 
       described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
@@ -48,11 +44,9 @@ RSpec.describe ProductPair do
 
   context "when bsr is invalid and pair is NOT profitable" do
     it "does NOT save this pair to db" do
-      pricelist_record = build(:pricelist_record)
       pair = build_invalid_pair
 
       stub_unprofitable_income
-      allow(ProfitPair).to receive(:create)
 
       described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
@@ -62,11 +56,9 @@ RSpec.describe ProductPair do
 
   context "when bsr is valid and pair is profitable" do
     it "saves profit pair to db" do
-      pricelist_record = build(:pricelist_record)
       pair = build_valid_pair
 
       stub_profitable_income
-      allow(ProfitPair).to receive(:create)
 
       described_class.new(pricelist_record: pricelist_record, pair: pair).save_if_profitable
 
