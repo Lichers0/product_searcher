@@ -3,15 +3,15 @@
 require "rails_helper"
 
 RSpec.describe Amz::CompetitivePricing do
-  describe "#landed_price" do
+  describe "#product_price" do
     it "returns price product" do
       VCR.use_cassette "amz/competitive_pricing" do
         asin = "B00BUFXI6M"
-        price_product = 4.65
+        product_price = 4.65
 
         result = described_class.new(api_keys_and_marketplace).for_asin(asin: asin)
 
-        expect(result.landed_price).to eq price_product
+        expect(result.product_price).to eq product_price
       end
     end
   end

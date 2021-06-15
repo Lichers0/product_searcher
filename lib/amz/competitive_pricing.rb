@@ -13,10 +13,10 @@ module Amz
       self
     end
 
-    def landed_price
-      return @landed_price if defined? @landed_price
+    def product_price
+      return @product_price if defined? @product_price
 
-      @landed_price ||= landed_price_amount
+      @product_price ||= landed_price_amount
     end
 
     def offers_count
@@ -26,7 +26,7 @@ module Amz
     end
 
     alias total_offers offers_count
-    alias listing_price landed_price
+    alias listing_price product_price
 
     private
 
