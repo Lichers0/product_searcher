@@ -1,0 +1,199 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mws.amazonservices.com/Products/2011-10-01
+    body:
+      encoding: UTF-8
+      string: AWSAccessKeyId=AKIAIVHVPRCMH5UWD4HA&Action=GetMyFeesEstimate&FeesEstimateRequestList.FeesEstimateRequest.1.IdType=ASIN&FeesEstimateRequestList.FeesEstimateRequest.1.IdValue=B005HE1OMW&FeesEstimateRequestList.FeesEstimateRequest.1.Identifier=asin%20B005HE1OMW&FeesEstimateRequestList.FeesEstimateRequest.1.IsAmazonFulfilled=true&FeesEstimateRequestList.FeesEstimateRequest.1.MarketplaceId=ATVPDKIKX0DER&FeesEstimateRequestList.FeesEstimateRequest.1.PriceToEstimateFees.ListingPrice.Amount=20.0&FeesEstimateRequestList.FeesEstimateRequest.1.PriceToEstimateFees.ListingPrice.CurrencyCode=USD&MWSAuthToken=amzn.mws.6eb293fe-7935-feb0-f562-4c4650cff837&SellerId=AAQHWTH7HF8BV&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2021-06-07T07%3A31%3A06Z&Version=2011-10-01&Signature=UvjAuKpC%2FlGfvo%2FLCp%2BsufDgxi%2F%2BFZkL7GzoRk7%2B634%3D
+    headers:
+      User-Agent:
+      - Jeff/2.0.2 (Language=Ruby; vm1396606)
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Server
+      Date:
+      - Mon, 07 Jun 2021 07:31:07 GMT
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '5221'
+      Connection:
+      - keep-alive
+      X-Amz-Rid:
+      - AKENX5472YV5146T4CPH
+      X-Mws-Quota-Max:
+      - '36000.0'
+      X-Mws-Quota-Remaining:
+      - '36000.0'
+      X-Mws-Quota-Resetson:
+      - '2021-06-07T07:32:00.000Z'
+      X-Amz-Date:
+      - Mon, 07 Jun 2021 07:31:07 GMT
+      X-Amzn-Authorization:
+      - AAA identity=com.amazon.aaa.MWSFeesBackendService.AndromedaControlService.amzn1.aaa.id.qhz3ylg755gkejyk5sh44qm3wy.Default/1,
+        Operation=GetMyFeesEstimate, Service=MWSFeesBackendService, Encrypted=true,
+        SignedHeaders=X-Amz-Date, Algorithm=HmacSHA256, Signed=true, Signature=XqwUd20ljpm5QRJHUjIHUtMDdCdvY0bANgH2dewl964=,RelationshipVersion=0
+      X-Mws-Request-Id:
+      - 51f6c8bf-efcd-44d4-abf1-3d01c3fb6271
+      X-Mws-Timestamp:
+      - '2021-06-07T07:31:07.200Z'
+      X-Mws-Response-Context:
+      - S5wFtCs1ypXf1Z2LC0y2Tt3R3ve59p+0idyA+/Jm1D2jkzajomjjOXOxKMX7Lb9iiApmoNlmX2E=
+      Vary:
+      - accept-encoding,Content-Type,Accept-Encoding,X-Amzn-CDN-Cache,X-Amzn-AX-Treatment,User-Agent
+      Permissions-Policy:
+      - interest-cohort=()
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <GetMyFeesEstimateResponse xmlns="http://mws.amazonservices.com/schema/Products/2011-10-01">
+          <GetMyFeesEstimateResult>
+            <FeesEstimateResultList>
+              <FeesEstimateResult>
+                <FeesEstimate>
+                  <TimeOfFeesEstimation>2021-06-07T07:31:07.235Z</TimeOfFeesEstimation>
+                  <TotalFeesEstimate>
+                    <Amount>6.64</Amount>
+                    <CurrencyCode>USD</CurrencyCode>
+                  </TotalFeesEstimate>
+                  <FeeDetailList>
+                    <FeeDetail>
+                      <FeeAmount>
+                        <Amount>3.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeeAmount>
+                      <FinalFee>
+                        <Amount>3.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FinalFee>
+                      <FeePromotion>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeePromotion>
+                      <FeeType>ReferralFee</FeeType>
+                    </FeeDetail>
+                    <FeeDetail>
+                      <FeeAmount>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeeAmount>
+                      <FinalFee>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FinalFee>
+                      <FeePromotion>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeePromotion>
+                      <FeeType>VariableClosingFee</FeeType>
+                    </FeeDetail>
+                    <FeeDetail>
+                      <FeeAmount>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeeAmount>
+                      <FinalFee>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FinalFee>
+                      <FeePromotion>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeePromotion>
+                      <FeeType>PerItemFee</FeeType>
+                    </FeeDetail>
+                    <FeeDetail>
+                      <FeeAmount>
+                        <Amount>3.64</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeeAmount>
+                      <FinalFee>
+                        <Amount>3.64</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FinalFee>
+                      <FeePromotion>
+                        <Amount>0.00</Amount>
+                        <CurrencyCode>USD</CurrencyCode>
+                      </FeePromotion>
+                      <FeeType>FBAFees</FeeType>
+                      <IncludedFeeDetailList>
+                        <FeeDetail>
+                          <FeeAmount>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeeAmount>
+                          <FinalFee>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FinalFee>
+                          <FeePromotion>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeePromotion>
+                          <FeeType>FBAWeightHandling</FeeType>
+                        </FeeDetail>
+                        <FeeDetail>
+                          <FeeAmount>
+                            <Amount>3.64</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeeAmount>
+                          <FinalFee>
+                            <Amount>3.64</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FinalFee>
+                          <FeePromotion>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeePromotion>
+                          <FeeType>FBAPickAndPack</FeeType>
+                        </FeeDetail>
+                        <FeeDetail>
+                          <FeeAmount>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeeAmount>
+                          <FinalFee>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FinalFee>
+                          <FeePromotion>
+                            <Amount>0.00</Amount>
+                            <CurrencyCode>USD</CurrencyCode>
+                          </FeePromotion>
+                          <FeeType>FBAOrderHandling</FeeType>
+                        </FeeDetail>
+                      </IncludedFeeDetailList>
+                    </FeeDetail>
+                  </FeeDetailList>
+                </FeesEstimate>
+                <FeesEstimateIdentifier>
+                  <MarketplaceId>ATVPDKIKX0DER</MarketplaceId>
+                  <IdType>ASIN</IdType>
+                  <SellerId>AAQHWTH7HF8BV</SellerId>
+                  <IsAmazonFulfilled>true</IsAmazonFulfilled>
+                  <SellerInputIdentifier>asin B005HE1OMW</SellerInputIdentifier>
+                  <IdValue>B005HE1OMW</IdValue>
+                  <PriceToEstimateFees>
+                    <ListingPrice>
+                      <Amount>20.0</Amount>
+                      <CurrencyCode>USD</CurrencyCode>
+                    </ListingPrice>
+                  </PriceToEstimateFees>
+                </FeesEstimateIdentifier>
+                <Status>Success</Status>
+              </FeesEstimateResult>
+            </FeesEstimateResultList>
+          </GetMyFeesEstimateResult>
+          <ResponseMetadata>
+            <RequestId>51f6c8bf-efcd-44d4-abf1-3d01c3fb6271</RequestId>
+          </ResponseMetadata>
+        </GetMyFeesEstimateResponse>
+  recorded_at: Mon, 07 Jun 2021 07:31:07 GMT
+recorded_with: VCR 6.0.0

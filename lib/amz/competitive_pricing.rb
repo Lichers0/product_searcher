@@ -8,15 +8,15 @@ module Amz
     end
 
     def for_asin(asin:)
-      @response = client.get_competitive_pricing_for_asin(marketplace, asin)
+      self.response = api_client.get_competitive_pricing_for_asin(marketplace, asin)
 
       self
     end
 
-    def landed_price
-      return @landed_price if defined? @landed_price
+    def product_price
+      return @product_price if defined? @product_price
 
-      @landed_price ||= landed_price_amount
+      @product_price ||= landed_price_amount
     end
 
     def offers_count
@@ -26,7 +26,7 @@ module Amz
     end
 
     alias total_offers offers_count
-    alias listing_price landed_price
+    alias listing_price product_price
 
     private
 
@@ -57,7 +57,7 @@ module Amz
     def offers_count_new_condition
       offering_listing
         .find { |record| record["condition"].casecmp?("new") }
-        .fetch("__content__")
+        .fetch("__content__").to_i
     end
   end
 end
