@@ -61,7 +61,19 @@ class ProductPair
   end
 
   def income
-    @income ||= listing_price - amount_fees - quantity * cost - services_cost - weight * ship_to_fba
+    @income ||= product_pair_income.amount
+  end
+
+  def product_pair_income
+    ProductPairIncome.new(
+      listing_price: listing_price,
+      amount_fees: amount_fees,
+      quantity: quantity,
+      cost: cost,
+      services_cost: services_cost,
+      weight: weight,
+      ship_to_fba: ship_to_fba
+    )
   end
 
   def marketplace
@@ -69,14 +81,11 @@ class ProductPair
   end
 
   def competitive_pricing
-    @competitive_pricing ||=
-      Amz::CompetitivePricing.new(api_keys.merge(marketplace: marketplace))
-                             .for_asin(asin: asin)
+    @competitive_pricing ||= Amz::CompetitivePricing.new(api_keys.merge(marketplace: marketplace)).for_asin(asin: asin)
   end
 
   def fees_by_current_asin
-    @fees_by_current_asin ||=
-      Amz::MyFees.new(api_keys.merge(marketplace: marketplace))
-                 .estimate(asin: asin, price: listing_price)
+    @fees_by_current_asin ||= Amz::MyFees.new(api_keys
+      .merge(marketplace: marketplace)).estimate(asin: asin, price: listing_price)
   end
 end

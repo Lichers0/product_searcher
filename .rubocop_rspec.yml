@@ -8,3 +8,12 @@ RSpec/ExampleLength:
     - "spec/**/*"
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+    - if
+    - unless
+    - for
+    - and

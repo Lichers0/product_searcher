@@ -4,28 +4,29 @@ require "rails_helper"
 
 RSpec.describe PricelistProduct do
   describe "#search_profit_pair" do
-    describe "status of" do
-      context "when search is done" do
-        it "updates status pricelist record" do
-          VCR.use_cassette "search_profit_pair" do
-            task = create(:task, :correct_price, ship_to_fba: 0.1, services_cost: 0.1)
-            pricelist_record = create(:pricelist_record, upc: "035585800158", cost: 0.1, task: task)
+    it "marks pricelist record as processed" do
+      task = create(:task, :correct_price)
+      pricelist_record = create(:pricelist_record, task: task)
+      product_search = instance_double(Amz::ProductSearch, find_by: [])
+      allow(Amz::ProductSearch).to receive(:new).and_return(product_search)
 
-            expect { described_class.new(pricelist_record).search_profit_pair }
-              .to change(PricelistRecord.where(processed: true), :count).by(1)
-          end
-        end
+      expect { described_class.new(pricelist_record).search_profit_pair }
+        .to change { pricelist_record.reload.processed }.from(false).to(true)
+    end
 
-        it "saves profit pair to db" do
-          VCR.use_cassette "search_profit_pair" do
-            task = create(:task, :correct_price, ship_to_fba: 0.1, services_cost: 0.1)
-            pricelist_record = create(:pricelist_record, upc: "035585800158", cost: 0.1, task: task)
+    it "finds profitable product pair" do
+      asin1 = instance_double(Amz::Asin)
+      asin2 = instance_double(Amz::Asin)
+      product_search = instance_double(Amz::ProductSearch, find_by: [asin1, asin2])
+      allow(Amz::ProductSearch).to receive(:new).and_return(product_search)
+      task = create(:task, :correct_price)
+      pricelist_record = create(:pricelist_record, task: task)
+      product_pair = instance_double(ProductPair, save_if_profitable: "")
+      allow(ProductPair).to receive(:new).and_return(product_pair)
 
-            expect { described_class.new(pricelist_record).search_profit_pair }
-              .to change(ProfitPair, :count).by(1)
-          end
-        end
-      end
+      described_class.new(pricelist_record).search_profit_pair
+
+      expect(product_pair).to have_received(:save_if_profitable).twice
     end
   end
 end
