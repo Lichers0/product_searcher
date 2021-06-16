@@ -9,7 +9,10 @@ RSpec.describe Amz::MyFees do
       price = 20.0
       amount_fees = 6.64
 
-      expect(described_class.new(api_keys_and_marketplace).estimate(asin: asin, price: price).amount).to eq amount_fees
+      my_fees = described_class.new(api_keys_and_marketplace)
+      my_fees_estimate = my_fees.estimate(asin: asin, price: price)
+
+      expect(my_fees_estimate.amount).to eq amount_fees
     end
   end
 end
