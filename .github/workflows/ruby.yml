@@ -3,7 +3,7 @@ env:
   RAILS_ENV: test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: product_seacher_test
+  POSTGRES_DB: pairfinder_test
 
 name: Rails_tests
 
