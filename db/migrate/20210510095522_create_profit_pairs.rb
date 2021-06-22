@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateProfitPairs < ActiveRecord::Migration[6.1]
-  def change
+  def change # rubocop:disable Metrics/MethodLength
     create_table :profit_pairs do |t|
       t.string :asin
       t.decimal :income, precision: 8, scale: 2
