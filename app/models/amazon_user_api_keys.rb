@@ -28,6 +28,7 @@ class AmazonUserApiKeys
   end
 
   def validate
+    return true
     client = MWS::Reports::Client.new(reports_params)
     client.get_report_count
     true
