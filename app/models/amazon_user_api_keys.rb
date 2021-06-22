@@ -39,8 +39,8 @@ class AmazonUserApiKeys
     {
       marketplace: "US",
       merchant_id: seller_id,
-      aws_access_key_id: credentials.mws[:aws_access_key_id],
-      aws_secret_access_key: credentials.mws[:aws_secret_access_key],
+      aws_access_key_id: credentials.dig(:mws, :aws_access_key_id),
+      aws_secret_access_key: credentials.dig(:mws, :aws_secret_access_key),
       auth_token: mws_auth_token
     }
   end
