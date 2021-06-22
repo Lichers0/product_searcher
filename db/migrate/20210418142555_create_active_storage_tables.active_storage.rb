@@ -2,7 +2,7 @@
 
 # This migration comes from active_storage (originally 20170806125915)
 # rubocop:disable Metrics/AbcSize
-class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
+class CreateActiveStorageTables < ActiveRecord::Migration[6.1]
   def change # rubocop:disable Metrics/MethodLength
     create_table :active_storage_blobs do |t|
       t.string   :key,          null: false
