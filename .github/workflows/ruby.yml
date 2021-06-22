@@ -4,6 +4,7 @@ env:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: pairfinder_test
+  RAILS_TEST_KEY: ${{ secrets.RAILS_TEST_KEY }}
 
 name: Rails_tests
 
