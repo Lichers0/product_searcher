@@ -1,0 +1,26 @@
+tr
+  td
+    = profit_pair.bsr
+  td
+    = link_to "https://www.amazon.com/dp/#{profit_pair.asin}", target: "_blank" do
+      = profit_pair.asin
+  td
+    = profit_pair.income
+  td
+    = (profit_pair.income / profit_pair.pricelist_record.cost).round(3)
+  td
+    = profit_pair.buybox_price
+  td
+    = profit_pair.quantity_unit
+  td
+    = profit_pair.pricelist_record.cost
+  td
+    = profit_pair.total_offers
+  td
+    = profit_pair.pricelist_record.upc
+  td
+    = profit_pair.brand
+  td
+    = profit_pair.weight
+  td
+    = profit_pair.title
