@@ -3,8 +3,8 @@ version: '3.9'
 services:
   app: &app
     build:
-      context: .dockerdev
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: .dockerdev/Dockerfile
       args:
         RUBY_VERSION: '2.7.3'
         PG_MAJOR: '13'
@@ -94,7 +94,7 @@ services:
     <<: *app
     command: ./bin/webpack-dev-server
     ports:
-      - '035:3035'
+      - '3035:3035'
     volumes:
       - .:/app:cached
       - bundle:/usr/local/bundle
