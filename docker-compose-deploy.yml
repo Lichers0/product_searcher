@@ -15,8 +15,8 @@ services:
       target: production
       args:
         RUBY_VERSION: '2.7.3'
-        PG_MAJOR: '13'
-        NODE_MAJOR: '14'
+        PG_MAJOR: '11'
+        NODE_MAJOR: '13'
         YARN_VERSION: '1.22.5'
         BUNDLER_VERSION: '2.1.4'
     environment:
@@ -33,12 +33,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    image: lichers/pairfinder_deploy:0.5.0
-    healthcheck:
-      test: curl -sS http://localhost:3000/healthcheck || exit 1
-      interval: 30s
-      timeout: 3s
-      retries: 30
+    image: pairfinder_deploy:0.5.0
 
   green:
     <<: *app
