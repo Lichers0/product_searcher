@@ -63,6 +63,12 @@ group :development do
   gem "standard", "~> 1.0", ">= 1.0.5"
 
   gem "annotate"
+
+  gem "capistrano", require: false
+  gem "capistrano-bundler", require: false
+  gem "capistrano-passenger", require: false
+  gem "capistrano-rails", require: false
+  gem "capistrano-rvm", require: false
 end
 
 group :test do

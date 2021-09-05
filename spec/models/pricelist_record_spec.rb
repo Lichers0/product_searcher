@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PricelistRecord, type: :model do
+RSpec.describe PricelistRecord do
   describe ".unprocessed" do
     it "includes unprocessed records" do
       task = create_task
