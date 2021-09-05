@@ -2,6 +2,8 @@ version: '3.2'
 
 services:
   nginx-proxy:
+    environment:
+      - DEFAULT_HOST=whoami.local
     image: jwilder/nginx-proxy:alpine
     ports:
       - "80:80"
