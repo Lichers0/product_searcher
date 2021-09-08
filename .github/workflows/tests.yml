@@ -52,7 +52,9 @@ jobs:
       - name: Create database
         env:
           RAILS_ENV: test
-        run: bundler exec rails db:setup
+        run: |
+          gem install bundler
+          bundler exec rails db:setup
 
       - name: Run tests
         run: rspec spec/
