@@ -60,4 +60,4 @@ jobs:
         run: bundler exec rails db:setup
 
       - name: Run tests
-        run: rspec spec/
+        run: bundler exec rspec spec/
