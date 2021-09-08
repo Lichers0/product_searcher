@@ -48,13 +48,16 @@ jobs:
 
       - name: Install packages
         run: yarn install --pure-lockfile
+      
+      - name: install gems
+        run: |
+          gem install bundler
+          bundle install
         
       - name: Create database
         env:
           RAILS_ENV: test
-        run: |
-          gem install bundler
-          bundler exec rails db:setup
+        run: bundler exec rails db:setup
 
       - name: Run tests
         run: rspec spec/
