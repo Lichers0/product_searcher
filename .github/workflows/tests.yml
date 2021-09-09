@@ -5,6 +5,7 @@ env:
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: pairfinder_test
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+  IMAGE_TAG: 0:5:1
 
 name: Rails_tests
 
@@ -61,3 +62,6 @@ jobs:
 
       - name: Run tests
         run: bundler exec rspec spec/
+        
+      - name: Create image
+        run: docker-compose -f docker-compose-deploy.yml build blue
