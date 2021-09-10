@@ -5,7 +5,7 @@ env:
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: pairfinder_test
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-  IMAGE_TAG: 0:5:1
+  IMAGE_TAG: 0.5.1
 
 name: Rails_tests
 
@@ -73,7 +73,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Tag image
-        run: docker tag pairfinder_deploy:0.5.0 lichers/pairfinder_deploy:0.5.0
+        run: docker tag pairfinder_deploy:0.5.0 lichers/pairfinder_deploy:latest
       
       - name: Push image
-        run: docker push lichers/pairfinder_deploy:0.5.0     
+        run: docker push lichers/pairfinder_deploy:latest     
