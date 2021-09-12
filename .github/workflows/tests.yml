@@ -66,9 +66,6 @@ jobs:
       - name: Create SK
         run: |
           echo ${{ secrets.RAILS_MASTER_KEY }} >> ./config/master.key
-          cd config/
-          cat master.key
-          cd ..
         
       - name: Create image
         run: docker-compose -f docker-compose-deploy.yml build blue
