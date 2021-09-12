@@ -96,4 +96,5 @@ jobs:
           key: ${{ secrets.DEPLOY_USER_KEY }}
           script: |
             ./projects/pairfinder/deploy/deploy
+
             
