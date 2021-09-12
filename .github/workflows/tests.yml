@@ -66,9 +66,7 @@ jobs:
       - name: Create SK
         run: |
           echo ${{ secrets.RAILS_MASTER_KEY }} >> ./config/master.key
-          ls
           cd config/
-          ls
           cat master.key
           cd ..
         
