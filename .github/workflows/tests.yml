@@ -92,4 +92,3 @@ jobs:
             cd ~/projects/pairfinder/deploy
             ./deploy.sh
 
-            
