@@ -73,7 +73,17 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Tag image
-        run: docker tag pairfinder_deploy:latest ${{ secrets.DOCKERHUB_USERNAME }}/pairfinder_deploy:latest
+        run: docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
       
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/pairfinder_deploy:latest     
+        run: docker push lichers/pairfinder_deploy:latest
+        
+      - name: Update docker image and restart containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd projects/
+            
