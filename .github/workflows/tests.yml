@@ -34,6 +34,16 @@ jobs:
           REDIS_PORT: 6379
 
     steps:   
+      - name: Update docker image and restart containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: 2221
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEPLOY_USER_KEY }}
+          script: |
+            ./projects/pairfinder/deploy/deploy
+            
       - uses: actions/checkout@v2 
       - uses: ruby/setup-ruby@v1
         with:
