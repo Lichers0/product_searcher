@@ -35,11 +35,10 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    image: pairfinder_deploy:0.5.0
+    image: pairfinder_deploy:latest
 
   green:
     <<: *app
-    image: pairfinder_deploy:0.5.0
 
   postgres:
     image: postgres:10.11-alpine

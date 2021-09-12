@@ -85,5 +85,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            cd projects/
+            ./projects/pairfinder/deploy/deploy
             
