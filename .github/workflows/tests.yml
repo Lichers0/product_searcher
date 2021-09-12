@@ -95,6 +95,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_USER_KEY }}
           script: |
-            ./projects/pairfinder/deploy/deploy
+            cd ~/projects/pairfinder/deploy
+            ./deploy.sh
 
             
