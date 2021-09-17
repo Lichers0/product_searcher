@@ -78,7 +78,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Create and push image
-        run: script/build_deploy_mage
+        run: script/build_deploy_image
           
       # - name: Tag image
       #   run: docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
