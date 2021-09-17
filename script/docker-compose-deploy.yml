@@ -12,7 +12,7 @@ services:
 
   blue: &app
     build:
-      context: .
+      context: ./..
       dockerfile: .dockerdev/Dockerfile
       target: production
       args:
