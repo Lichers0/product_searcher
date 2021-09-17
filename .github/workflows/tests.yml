@@ -1,5 +1,6 @@
 env: 
   RUBY_VERSION: 2.7.3
+  NODE_VERSION: 14.17.1
   RAILS_ENV: test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
@@ -45,12 +46,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 14.17.1
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install packages
         run: yarn install --pure-lockfile
       
-      - name: install gems
+      - name: Install gems
         run: |
           gem install bundler
           bundle install
@@ -58,29 +59,41 @@ jobs:
       - name: Create database
         env:
           RAILS_ENV: test
-        run: bundler exec rails db:setup
+        run: bundle exec rails db:setup
 
       - name: Run tests
-        run: bundler exec rspec spec/
+        run: script/cibuild
         
       - name: Create SK
         run: |
           echo ${{ secrets.RAILS_MASTER_KEY }} >> ./config/master.key
         
-      - name: Create image
-        run: docker-compose -f docker-compose-deploy.yml build blue
+      # - name: Create image
+      #   run: docker-compose -f docker-compose-deploy.yml build blue
       
       - name: Login to hub.docker
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create and push image
+        run: script/build_deploy_mage
           
-      - name: Tag image
-        run: docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
+      # - name: Tag image
+      #   run: docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
       
-      - name: Push image
-        run: docker push lichers/pairfinder_deploy:latest
+      # - name: Push image
+      #   run: docker push lichers/pairfinder_deploy:latest
+
+      - name: Update deploy scripts
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEPLOY_USER_KEY }}
+          source: "script/deploy"
+          target: "deploy"
         
       - name: Update docker image and restart containers
         uses: appleboy/ssh-action@master
@@ -88,7 +101,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_USER_KEY }}
-          script: |
-            cd ~/projects/pairfinder/deploy
-            ./deploy.sh
+          script: deploy/deploy.sh
 

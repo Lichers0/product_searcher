@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "Start to build image..."
+date "+%H:%M:%S"
+
+docker-compose -f script/docker-compose-deploy.yml build blue
+
+echo "Built deploy image."
+date "+%H:%M:%S"
+
+docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
+
+echo "Push image to hub"
+docker push lichers/pairfinder_deploy:latest

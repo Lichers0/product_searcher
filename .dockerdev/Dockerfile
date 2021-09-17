@@ -80,4 +80,4 @@ RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
 
-ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
+ENTRYPOINT ["./script/entrypoints/docker-entrypoint.sh"]
