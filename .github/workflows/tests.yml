@@ -78,13 +78,14 @@ jobs:
         run: script/build_deploy_image
           
       - name: Update deploy scripts
+        run: cd script/deploy
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_USER_KEY }}
-          source: "script/deploy/*"
+          source: "./*"
           target: "deploy"
         
       - name: Update docker image and restart containers
