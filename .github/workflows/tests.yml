@@ -68,9 +68,6 @@ jobs:
         run: |
           echo ${{ secrets.RAILS_MASTER_KEY }} >> ./config/master.key
         
-      # - name: Create image
-      #   run: docker-compose -f docker-compose-deploy.yml build blue
-      
       - name: Login to hub.docker
         uses: docker/login-action@v1
         with:
@@ -80,12 +77,6 @@ jobs:
       - name: Create and push image
         run: script/build_deploy_image
           
-      # - name: Tag image
-      #   run: docker tag pairfinder_deploy:latest lichers/pairfinder_deploy:latest
-      
-      # - name: Push image
-      #   run: docker push lichers/pairfinder_deploy:latest
-
       - name: Update deploy scripts
         uses: appleboy/scp-action@master
         with:
@@ -93,7 +84,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEPLOY_USER_KEY }}
-          source: "script/deploy"
+          source: "script/deploy/*"
           target: "deploy"
         
       - name: Update docker image and restart containers
