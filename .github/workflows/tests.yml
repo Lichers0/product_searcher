@@ -48,18 +48,18 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install packages
-        run: yarn install --pure-lockfile
+      # - name: Install packages
+      #   run: yarn install --pure-lockfile
       
-      - name: Install gems
-        run: |
-          gem install bundler
-          bundle install
+      # - name: Install gems
+      #   run: |
+      #     gem install bundler
+      #     bundle install
         
-      - name: Create database
-        env:
-          RAILS_ENV: test
-        run: bundle exec rails db:setup
+      # - name: Create database
+      #   env:
+      #     RAILS_ENV: test
+      #   run: bundle exec rails db:setup
 
       - name: Run tests
         run: script/cibuild

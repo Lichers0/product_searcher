@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Installing yarn…"
+yarn install --pure-lockfile >/dev/null
+
+
+echo "==> Installing gems…"
+gem install bundler >/dev/null
+bundle install >/dev/null
