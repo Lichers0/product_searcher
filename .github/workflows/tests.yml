@@ -2,8 +2,9 @@ env:
   RUBY_VERSION: 2.7.3
   NODE_VERSION: 14.17.1
   RAILS_ENV: test
-  BD_USER: postgres
-  BD_PASSWORD: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: pairfinder_test
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
   IMAGE_TAG: 0.5.1
 
@@ -21,8 +22,8 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: ${{ env.BD_USER }}
-          POSTGRES_PASSWORD: ${{ env.BD_PASSWORD }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
 
       redis:
         image: redis
